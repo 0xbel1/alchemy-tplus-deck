@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tplus x Alchemy | Discovery Call</title>
+<style>
+  /* ── FONTS ── */
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('fonts/PPNeueMontreal-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('fonts/PPNeueMontreal-Book.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('fonts/PPNeueMontreal-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('fonts/PPNeueMontreal-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('fonts/PPNeueMontreal-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  :root {
+    --blue: #363FF9;
+    --blue-light: #5B63FF;
+    --purple: #8B5CF6;
+    --black: #020617;
+    --white: #FFFFFF;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --grad-hero: linear-gradient(135deg, #363FF9 0%, #8B5CF6 50%, #1DC8F0 100%);
+    --grad-blue: linear-gradient(135deg, #0165FF, #1DC8F0);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow-sm: 0 1px 3px rgba(2, 6, 23, 0.06), 0 1px 2px rgba(2, 6, 23, 0.04);
+    --shadow-md: 0 4px 16px rgba(2, 6, 23, 0.08), 0 2px 4px rgba(2, 6, 23, 0.04);
+    --shadow-lg: 0 12px 40px rgba(54, 63, 249, 0.12), 0 4px 12px rgba(2, 6, 23, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: 'PP Neue Montreal', 'Public Sans', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    height: 26px;
+    opacity: 0.95;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2px;
+  }
+
+  .nav-links a {
+    color: var(--gray-500);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--black);
+    background: var(--gray-100);
+  }
+
+  .nav-links a.active {
+    color: var(--blue);
+    background: rgba(54, 63, 249, 0.06);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    min-height: 100vh;
+    padding: 55px 60px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    background: var(--grad-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+    display: inline-block;
+  }
+
+  .section-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.15;
+    color: var(--black);
+    letter-spacing: -0.5px;
+  }
+
+  .section-subtitle {
+    font-size: 17px;
+    color: var(--gray-500);
+    margin-bottom: 48px;
+    max-width: 680px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background:
+      radial-gradient(ellipse 600px 400px at 30% 20%, rgba(54, 63, 249, 0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 500px at 70% 60%, rgba(139, 92, 246, 0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 300px at 50% 80%, rgba(29, 200, 240, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    animation: heroBgFloat 20s ease-in-out infinite;
+  }
+
+  @keyframes heroBgFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(10px, -15px) scale(1.02); }
+    66% { transform: translate(-10px, 10px) scale(0.98); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .hero-logos {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-logo-tplus {
+    height: 88px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .hero-logo-x {
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gray-300);
+  }
+
+  .hero-logo-alchemy-mark {
+    height: 72px;
+    object-fit: contain;
+  }
+
+  .hero-sub {
+    font-size: 22px;
+    color: var(--gray-600);
+    max-width: 660px;
+    margin-bottom: 44px;
+    line-height: 1.5;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-objective {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    max-width: 700px;
+    font-size: 15px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-objective strong {
+    color: var(--black);
+    font-weight: 600;
+  }
+
+  /* ── AGENDA ── */
+  #agenda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 64px;
+    max-width: 860px;
+    margin-top: 16px;
+  }
+
+  .agenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .agenda-item:hover {
+    background: rgba(54, 63, 249, 0.08);
+  }
+
+  .agenda-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .agenda-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+    background: var(--grad-hero);
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .agenda-body {
+    padding-top: 4px;
+  }
+
+  .agenda-label {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    border: 1.5px solid var(--gray-300);
+    border-radius: 100px;
+    padding: 4px 16px;
+    margin-bottom: 10px;
+  }
+
+  .agenda-desc {
+    font-size: 15px;
+    color: var(--gray-500);
+    line-height: 1.5;
+  }
+
+  .agenda-divider {
+    width: 100%;
+    height: 2px;
+    background: var(--black);
+    margin: 24px 0 40px;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--grad-hero);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(54, 63, 249, 0.15);
+    transform: translateY(-3px);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(54, 63, 249, 0.06);
+    border-radius: 12px;
+    filter: brightness(0) saturate(100%) invert(22%) sepia(99%) saturate(6000%) hue-rotate(237deg) brightness(99%) contrast(98%);
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--black);
+  }
+
+  .card-text {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.7;
+  }
+
+  .card-text li {
+    margin-bottom: 6px;
+    list-style: none;
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .card-text li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
+
+  /* ── PEOPLE TABLE ── */
+  .people-table-wrap {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .people-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .people-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray-400);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--gray-50);
+  }
+
+  .people-table td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--gray-600);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .people-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .people-table td:first-child {
+    color: var(--black);
+    font-weight: 600;
+  }
+
+  /* ── CHALLENGE CARDS (static 3-col) ── */
+  .challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .challenge-card-static {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .challenge-card-static::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--grad-hero);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .challenge-card-static:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(54, 63, 249, 0.15);
+    transform: translateY(-3px);
+  }
+
+  .challenge-card-static:hover::before {
+    opacity: 1;
+  }
+
+  .challenge-card-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--grad-hero);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .challenge-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.25;
+    color: var(--black);
+  }
+
+  .challenge-card-list {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--gray-600);
+  }
+
+  .challenge-card-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 10px;
+  }
+
+  .challenge-card-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  /* ── SOLUTIONS ── */
+  .solution-block {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .solution-block:hover {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(54, 63, 249, 0.2);
+  }
+
+  .solution-block.open {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 1px var(--blue), var(--shadow-lg);
+  }
+
+  .solution-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+  }
+
+  .solution-challenge {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    padding: 5px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .solution-arrow {
+    color: var(--blue);
+    font-size: 18px;
+    flex-shrink: 0;
+    font-weight: 300;
+  }
+
+  .solution-product {
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+    color: var(--black);
+  }
+
+  .solution-toggle {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s;
+    color: var(--gray-400);
+    flex-shrink: 0;
+  }
+
+  .solution-block.open .solution-toggle {
+    transform: rotate(180deg);
+    color: var(--blue);
+  }
+
+  .solution-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .solution-block.open .solution-body {
+    max-height: 800px;
+  }
+
+  .solution-content {
+    padding: 0 24px 28px;
+    border-top: 1px solid var(--gray-100);
+    padding-top: 20px;
+  }
+
+  .solution-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: var(--grad-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+
+  .solution-section-label:first-child {
+    margin-top: 0;
+  }
+
+  .solution-text {
+    font-size: 15px;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  .solution-text li {
+    margin-bottom: 5px;
+    list-style: none;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .solution-text li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
+
+  .solution-why {
+    background: linear-gradient(135deg, rgba(1, 229, 215, 0.08), rgba(54, 63, 249, 0.06));
+    border-left: 3px solid;
+    border-image: var(--grad-blue) 1;
+    padding: 16px 20px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 14px;
+    color: var(--gray-700);
+    margin-top: 20px;
+    line-height: 1.7;
+    font-weight: 500;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    right: 28px;
+    height: 2px;
+    background: var(--gray-200);
+  }
+
+  .timeline-step {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .timeline-dot {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--gray-400);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-step:hover .timeline-dot,
+  .timeline-step.active .timeline-dot {
+    border-color: transparent;
+    color: var(--white);
+    background: var(--grad-hero);
+    box-shadow: 0 4px 20px rgba(54, 63, 249, 0.3);
+    transform: scale(1.08);
+  }
+
+  .timeline-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--black);
+  }
+
+  .timeline-week {
+    font-size: 12px;
+    color: var(--gray-400);
+    font-weight: 500;
+  }
+
+  .timeline-detail {
+    margin-top: 48px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 32px;
+    display: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .timeline-detail.active {
+    display: block;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .timeline-detail h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--blue);
+  }
+
+  .timeline-detail ul {
+    list-style: none;
+  }
+
+  .timeline-detail li {
+    font-size: 15px;
+    color: var(--gray-600);
+    padding: 8px 0 8px 18px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .timeline-detail li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
+
+
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .section-divider hr {
+    border: none;
+    height: 2px;
+    background: var(--gray-300);
+  }
+
+  /* ── SIDEBAR OUTLINE ── */
+  .sidebar-outline {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 170px;
+    padding: 16px 0 16px 20px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .sidebar-outline.visible {
+    opacity: 1;
+  }
+
+  .outline-link {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-400);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .outline-link:hover {
+    color: rgba(54, 63, 249, 0.6);
+  }
+
+  .outline-link.active {
+    color: var(--blue);
+    border-left-color: var(--blue);
+    font-weight: 600;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="logos/logo-color.svg" alt="Alchemy" class="nav-logo">
+  <div class="nav-links">
+    <a href="#hero" class="active">Title</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#overview">Tplus Overview</a>
+    <a href="#challenges">Challenges</a>
+    <a href="#solutions">Solutions</a>
+    <a href="#next-steps">Next Steps</a>
+  </div>
+</nav>
+
+<!-- SIDEBAR OUTLINE -->
+<div class="sidebar-outline">
+  <a href="#hero" class="outline-link active">Title</a>
+  <a href="#agenda" class="outline-link">Agenda</a>
+  <a href="#overview" class="outline-link">Tplus Overview</a>
+  <a href="#challenges" class="outline-link">Key Challenges</a>
+  <a href="#solutions" class="outline-link">Solutions</a>
+  <a href="#next-steps" class="outline-link">Next Steps</a>
+</div>
+
+<!-- ────────────────────────────── -->
+<!-- SECTION 1: TITLE              -->
+<!-- ────────────────────────────── -->
+<section id="hero">
+  <div class="hero-badge">Discovery Call</div>
+  <div class="hero-logos">
+    <img src="tplus-logo.png" alt="Tplus" class="hero-logo-tplus">
+    <span class="hero-logo-x">&times;</span>
+    <img src="logos/logomark.svg" alt="Alchemy" class="hero-logo-alchemy-mark">
+  </div>
+  <p class="hero-sub">Infrastructure &amp; Data Layer for a Latency-Sensitive, Multi-Chain CLOB Exchange</p>
+  <div class="hero-objective">
+    <strong>Call Objective:</strong> Understand Tplus's current infrastructure bottlenecks, scalability requirements, and multi-chain architecture to explore how Alchemy can support their growth as a long-term infrastructure partner.
+  </div>
+
+  <div style="width: 100%; max-width: 700px; margin-top: 32px; position: relative; z-index: 1;">
+    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--black); text-align: left;">Key People</h3>
+    <div class="people-table-wrap">
+      <table class="people-table">
+        <thead>
+          <tr><th>Who</th><th>Role</th><th>What They Care About</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Markus</td>
+            <td>Founder</td>
+            <td>End-to-end product velocity, exchange-grade performance, technical architecture</td>
+          </tr>
+          <tr>
+            <td>Charco</td>
+            <td>Head of Growth</td>
+            <td>GTM strategy, partner pipeline, ecosystem distribution, narrative</td>
+          </tr>
+          <tr>
+            <td>Lazer</td>
+            <td>Head of Liquidity</td>
+            <td>Market maker relationships, liquidity sourcing, capital onboarding</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────────── -->
+<!-- SECTION 2: AGENDA             -->
+<!-- ────────────────────────────── -->
+<section id="agenda">
+  <div class="fade-in">
+    <h2 class="section-title" style="font-size: 48px;">Agenda</h2>
+    <div class="agenda-divider"></div>
+  </div>
+
+  <div class="agenda-grid">
+    <a href="#overview" class="agenda-item" style="transition-delay: 0.1s;">
+      <div class="agenda-num">01</div>
+      <div class="agenda-body">
+        <span class="agenda-label">Tplus Overview</span>
+        <p class="agenda-desc">An overview of Tplus's core business</p>
+      </div>
+    </a>
+
+    <a href="#solutions" class="agenda-item" style="transition-delay: 0.3s;">
+      <div class="agenda-num">03</div>
+      <div class="agenda-body">
+        <span class="agenda-label">Alchemy Solutions</span>
+        <p class="agenda-desc">How can Alchemy help scale Tplus and solve their bottlenecks?</p>
+      </div>
+    </a>
+
+    <a href="#challenges" class="agenda-item" style="transition-delay: 0.2s;">
+      <div class="agenda-num">02</div>
+      <div class="agenda-body">
+        <span class="agenda-label">Key Challenges</span>
+        <p class="agenda-desc">Key challenges we noticed on the surface</p>
+      </div>
+    </a>
+
+    <a href="#next-steps" class="agenda-item" style="transition-delay: 0.4s;">
+      <div class="agenda-num">04</div>
+      <div class="agenda-body">
+        <span class="agenda-label">Next Steps</span>
+        <p class="agenda-desc">Establish next steps/follow-ups</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ────────────────────────────── -->
+<!-- SECTION 3: TPLUS OVERVIEW     -->
+<!-- ────────────────────────────── -->
+<section id="overview">
+  <div class="fade-in">
+    <p class="section-label">01</p>
+    <h2 class="section-title">Tplus Overview</h2>
+    <p class="section-subtitle">Here's what we've learned about your architecture, your differentiators, and what you're solving for.</p>
+  </div>
+
+  <div class="cards-grid fade-in">
+    <div class="card">
+      <img src="icons/Decentralized-Icon.svg" alt="" class="card-icon">
+      <h3 class="card-title">Core Architecture</h3>
+      <div class="card-text">
+        <ul>
+          <li>DEX built on an offchain CLOB running inside a TEE</li>
+          <li>Trade execution &amp; confirmation targeted at &lt;1ms</li>
+          <li>Decouple trade confirmation from settlement</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <img src="icons/Interoperability-Icon.svg" alt="" class="card-icon">
+      <h3 class="card-title">What Makes Tplus Different</h3>
+      <div class="card-text">
+        <ul>
+          <li>Unified Liquidity</li>
+          <li>Composability w/ external protocols, exchanges, and custodians</li>
+          <li>Support every asset and product, including non-crypto categories</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <img src="icons/Efficient-icon.svg" alt="" class="card-icon">
+      <h3 class="card-title">Capital Efficiency Focus</h3>
+      <div class="card-text">
+        <ul>
+          <li>Margin checked at match time</li>
+          <li>Quote and cancel prioritized for market makers</li>
+          <li>Solvency is the #1 design constraint</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <img src="icons/Data-Icon.svg" alt="" class="card-icon">
+      <h3 class="card-title">Problem Tplus is Solving</h3>
+      <div class="card-text">
+        <ul>
+          <li>Liquidity and product fragmentation across chains &amp; venues creates verification and latency overhead</li>
+          <li>Tplus solves orderflow execution in a trustless &amp; multi-chain setting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ────────────────────────────── -->
+<!-- SECTION 4: KEY CHALLENGES     -->
+<!-- ────────────────────────────── -->
+<section id="challenges">
+  <div class="fade-in">
+    <p class="section-label">02</p>
+    <h2 class="section-title">Key Challenges</h2>
+    <p class="section-subtitle">A few challenges Tplus may face while building</p>
+  </div>
+
+  <div class="challenges-grid fade-in">
+    <!-- Challenge 1: Node Latency -->
+    <div class="challenge-card-static">
+      <div class="challenge-card-badge">1</div>
+      <h3 class="challenge-card-title">Node Latency &amp; Data Gaps</h3>
+      <ul class="challenge-card-list">
+        <li>Sub-millisecond matching engines require deterministic, low-latency blockchain reads across multiple chains</li>
+        <li>Public RPC infrastructure often produces p95/p99 latency spikes and inconsistent responses</li>
+        <li>Inconsistent chain data can cause incorrect margin checks, stale balances, or risk engine errors</li>
+      </ul>
+    </div>
+
+    <!-- Challenge 2: Polling -->
+    <div class="challenge-card-static">
+      <div class="challenge-card-badge">2</div>
+      <h3 class="challenge-card-title">Multi-Chain Polling Bottlenecks</h3>
+      <ul class="challenge-card-list">
+        <li>Exchanges must monitor deposits, settlements, and liquidation triggers across many chains in real time</li>
+        <li>Polling infrastructure introduces detection lag and missed-event risk</li>
+        <li>As chain coverage expands, polling becomes expensive and difficult to scale reliably</li>
+      </ul>
+    </div>
+
+    <!-- Challenge 3: Token Data -->
+    <div class="challenge-card-static">
+      <div class="challenge-card-badge">3</div>
+      <h3 class="challenge-card-title">Token Data</h3>
+      <ul class="challenge-card-list">
+        <li>Supporting many assets requires token metadata, balances, transfer history, and pricing data</li>
+        <li>Long-tail token support creates manual onboarding and maintenance overhead</li>
+        <li>Without a unified data layer, teams must build and maintain complex indexing infrastructure</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ────────────────────────────── -->
+<!-- SECTION 5: ALCHEMY SOLUTIONS  -->
+<!-- ────────────────────────────── -->
+<section id="solutions">
+  <div class="fade-in">
+    <p class="section-label">03</p>
+    <h2 class="section-title">How Alchemy De-Risks Your Mainnet Readiness</h2>
+    <p class="section-subtitle">Each solution maps directly to a challenge. Pick the ones that resonated most and go deep.</p>
+  </div>
+
+  <div class="fade-in">
+    <!-- Solution 1 -->
+    <div class="solution-block" onclick="toggleCard(this)">
+      <div class="solution-header">
+        <span class="solution-challenge">Node Latency &amp; Data Gaps</span>
+        <span class="solution-arrow">&rarr;</span>
+        <span class="solution-product">Alchemy RPC (Cortex)</span>
+        <svg class="solution-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="solution-body">
+        <div class="solution-content">
+          <p class="solution-section-label">Their Problem</p>
+          <p class="solution-text">Need fast, deterministic chain reads for a sub-ms matching engine and risk system.</p>
+
+          <p class="solution-section-label">What Alchemy Provides</p>
+          <div class="solution-text">
+            <ul>
+              <li>Contextual smart routing &mdash; up to 2.5x faster queries globally</li>
+              <li>Elastic throughput &mdash; scales automatically, launch-day safe</li>
+              <li>Multi-region infrastructure with autonomous failovers</li>
+              <li>Unlimited-range getLogs &mdash; scan entire chain event history 265x faster</li>
+              <li>Block-perfect data consistency &mdash; no stale reads</li>
+              <li>Shuffle-sharded tenant isolation &mdash; no noisy-neighbor spikes</li>
+            </ul>
+          </div>
+
+          <div class="solution-why">Your risk engine and matching layer get deterministic, low-latency data without managing node infrastructure. You focus on trading logic; the chain access layer just works.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solution 2 -->
+    <div class="solution-block" onclick="toggleCard(this)">
+      <div class="solution-header">
+        <span class="solution-challenge">Polling Bottlenecks</span>
+        <span class="solution-arrow">&rarr;</span>
+        <span class="solution-product">Webhooks + Smart Websockets</span>
+        <svg class="solution-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="solution-body">
+        <div class="solution-content">
+          <p class="solution-section-label">Their Problem</p>
+          <p class="solution-text">Polling multiple chains for deposits, settlements, and liquidation triggers is expensive, unreliable, and introduces dangerous detection lag.</p>
+
+          <p class="solution-section-label">What Alchemy Provides</p>
+          <div class="solution-text">
+            <ul>
+              <li><strong>Webhooks:</strong> Mined/dropped transaction alerts, address activity monitoring, custom event hooks &mdash; at-least-once delivery guarantee</li>
+              <li><strong>Smart Websockets:</strong> Filtered subscriptions for new events/logs, pending transactions (mempool), mined transactions, and new block heads</li>
+            </ul>
+          </div>
+
+          <div class="solution-why">Replace polling with push. Deposits credited instantly, settlement confirmations in real time, liquidation triggers without gaps. Lower cost, higher reliability.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solution 3 -->
+    <div class="solution-block" onclick="toggleCard(this)">
+      <div class="solution-header">
+        <span class="solution-challenge">Token Data</span>
+        <span class="solution-arrow">&rarr;</span>
+        <span class="solution-product">Token API + Transfers API</span>
+        <svg class="solution-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="solution-body">
+        <div class="solution-content">
+          <p class="solution-section-label">Their Problem</p>
+          <p class="solution-text">Supporting "every asset" means managing metadata, pricing, and transfer history for a growing universe of tokens across chains.</p>
+
+          <p class="solution-section-label">What Alchemy Provides</p>
+          <div class="solution-text">
+            <ul>
+              <li><strong>Token API:</strong> No token list required &mdash; balances, allowances, metadata, and real-time/historical pricing across all supported EVM chains</li>
+              <li><strong>Transfers API:</strong> Full historical activity (including internal transfers) in one request &mdash; 100x faster than alternatives</li>
+            </ul>
+          </div>
+
+          <div class="solution-why">Onboard new assets without building your own indexing pipeline. Your "every asset" roadmap stays on track without engineering drowning in token data infrastructure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ────────────────────────────── -->
+<!-- SECTION 6: NEXT STEPS         -->
+<!-- ────────────────────────────── -->
+<section id="next-steps">
+  <div class="fade-in">
+    <p class="section-label">04</p>
+    <h2 class="section-title">Next Steps</h2>
+    <p class="section-subtitle">Start with the 2-3 chains that matter most, prove the fit, and expand from there.</p>
+  </div>
+
+  <div class="timeline fade-in">
+    <div class="timeline-step active" onclick="showTimelineStep(0)">
+      <div class="timeline-dot">1</div>
+      <div class="timeline-label">Validate</div>
+      <div class="timeline-week">This Week</div>
+    </div>
+    <div class="timeline-step" onclick="showTimelineStep(1)">
+      <div class="timeline-dot">2</div>
+      <div class="timeline-label">Deep-Dive</div>
+      <div class="timeline-week">Week 2</div>
+    </div>
+    <div class="timeline-step" onclick="showTimelineStep(2)">
+      <div class="timeline-dot">3</div>
+      <div class="timeline-label">Pilot Scope</div>
+      <div class="timeline-week">Week 3</div>
+    </div>
+    <div class="timeline-step" onclick="showTimelineStep(3)">
+      <div class="timeline-dot">4</div>
+      <div class="timeline-label">Production</div>
+      <div class="timeline-week">Week 4+</div>
+    </div>
+  </div>
+
+  <div class="fade-in">
+    <div class="timeline-detail active" id="step-0">
+      <h4>Step 1: Validate Technical Fit</h4>
+      <ul>
+        <li><strong>Tplus shares:</strong> Top 2-3 priority chains, critical RPC methods, peak throughput estimates, real-time event requirements</li>
+        <li><strong>Alchemy shares:</strong> Benchmark data and latency profiles for those specific chains</li>
+        <li>Architecture recommendations based on Tplus's throughput and latency requirements</li>
+      </ul>
+    </div>
+    <div class="timeline-detail" id="step-1">
+      <h4>Step 2: Technical Deep-Dive</h4>
+      <ul>
+        <li>Joint session: Tplus engineering + Alchemy Solutions Engineering</li>
+        <li>Walk through RPC performance, Webhook/Websocket architecture, Token API coverage</li>
+        <li>Identify gaps or custom requirements</li>
+      </ul>
+    </div>
+    <div class="timeline-detail" id="step-2">
+      <h4>Step 3: Define Pilot Scope</h4>
+      <ul>
+        <li>Focused pilot: RPC + Webhooks on 2 chains in testnet environment</li>
+        <li>Success criteria: latency targets met (p50/p95/p99)</li>
+        <li>Zero missed events over defined test period</li>
+        <li>Token data coverage confirmed for target asset list</li>
+      </ul>
+    </div>
+    <div class="timeline-detail" id="step-3">
+      <h4>Step 4: Pilot Execution &rarr; Production</h4>
+      <ul>
+        <li>Run pilot, measure against agreed SLOs, iterate</li>
+        <li>Gate mainnet infrastructure decision on pilot results</li>
+        <li>Expand to additional chains and products based on what works</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+
+<script>
+  function toggleCard(el) {
+    el.classList.toggle('open');
+  }
+
+  function showTimelineStep(index) {
+    document.querySelectorAll('.timeline-step').forEach(function(s, i) {
+      s.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.timeline-detail').forEach(function(d, i) {
+      d.classList.toggle('active', i === index);
+    });
+  }
+
+  var sections = document.querySelectorAll('section');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var outlineLinks = document.querySelectorAll('.outline-link');
+  var sidebar = document.querySelector('.sidebar-outline');
+
+  function updateNav() {
+    var current = '';
+    sections.forEach(function(section) {
+      var top = section.offsetTop - 100;
+      if (window.scrollY >= top) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(function(link) {
+      link.classList.toggle(
+        'active',
+        link.getAttribute('href') === '#' + current
+      );
+    });
+    outlineLinks.forEach(function(link) {
+      link.classList.toggle(
+        'active',
+        link.getAttribute('href') === '#' + current
+      );
+    });
+    var heroBottom = document.getElementById('hero').offsetTop + document.getElementById('hero').offsetHeight;
+    sidebar.classList.toggle('visible', window.scrollY > heroBottom - 300);
+  }
+
+  window.addEventListener('scroll', updateNav);
+
+  /* Fade-in on scroll — includes agenda items */
+  var fadeEls = document.querySelectorAll('.fade-in, .agenda-item');
+
+  function checkFade() {
+    fadeEls.forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 60) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkFade);
+  checkFade();
+
+  /* Keyboard navigation */
+  var sectionIds = ['hero', 'agenda', 'overview', 'challenges', 'solutions', 'next-steps'];
+  var currentSection = 0;
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      currentSection = Math.min(currentSection + 1, sectionIds.length - 1);
+      document.getElementById(sectionIds[currentSection]).scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      currentSection = Math.max(currentSection - 1, 0);
+      document.getElementById(sectionIds[currentSection]).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  window.addEventListener('scroll', function() {
+    sections.forEach(function(section, i) {
+      var top = section.offsetTop - 150;
+      if (window.scrollY >= top) {
+        currentSection = i;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
