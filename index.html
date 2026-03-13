@@ -92,6 +92,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  nav.nav-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
   }
 
   .nav-logo {
@@ -1317,6 +1323,8 @@
         link.getAttribute('href') === '#' + current
       );
     });
+    var heroBottom = document.getElementById('hero').offsetTop + document.getElementById('hero').offsetHeight;
+    document.querySelector('nav').classList.toggle('nav-hidden', window.scrollY > heroBottom - 200);
   }
 
   window.addEventListener('scroll', updateNav);
