@@ -1323,8 +1323,7 @@
         link.getAttribute('href') === '#' + current
       );
     });
-    var heroBottom = document.getElementById('hero').offsetTop + document.getElementById('hero').offsetHeight;
-    document.querySelector('nav').classList.toggle('nav-hidden', window.scrollY > heroBottom - 200);
+    document.querySelector('nav').classList.toggle('nav-hidden', window.scrollY > 150);
   }
 
   window.addEventListener('scroll', updateNav);
