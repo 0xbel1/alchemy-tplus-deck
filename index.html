@@ -852,11 +852,6 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .sidebar-outline.visible {
     opacity: 1;
   }
 
@@ -1320,8 +1315,6 @@
         link.getAttribute('href') === '#' + current
       );
     });
-    var heroBottom = document.getElementById('hero').offsetTop + document.getElementById('hero').offsetHeight;
-    sidebar.classList.toggle('visible', window.scrollY > heroBottom - 300);
   }
 
   window.addEventListener('scroll', updateNav);
